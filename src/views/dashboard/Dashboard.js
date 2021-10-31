@@ -52,6 +52,8 @@ import avatar5 from 'src/assets/images/avatars/5.jpg'
 import avatar6 from 'src/assets/images/avatars/6.jpg'
 
 import addMessage from "./../../addFunctions"
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
+const admin = require("firebase-admin")
 
 
 const WidgetsDropdown = lazy(() => import('../widgets/WidgetsDropdown.js'))
@@ -184,9 +186,15 @@ const Dashboard = () => {
   ]
 const testMessage = () => {
   addMessage().then(result => {
-    console.log("result:", result.data)
+  
   })
 }
+const listAllUsers = () => {
+  admin.auth().listUsers()
+};
+
+
+console.log("admin:", listAllUsers)
   return (
     <>
       <WidgetsDropdown />
