@@ -1,5 +1,5 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, useHistory } from 'react-router-dom'
 import {
   CButton,
   CCard,
@@ -16,8 +16,44 @@ import {
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
 
+import { auth } from "./../../../Firebase";
+import { useAuth } from "./../../../contexts/AuthContext";
+
 const Login = () => {
-  
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+ 
+  const history = useHistory();
+
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((authUser) => {
+      console.log("auth", authUser)
+      if (authUser) {
+        history.push("/dashboard");
+      }
+    });
+    return unsubscribe;
+  }, []);
+  const signIn = () => {
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .catch((error) => alert(error));
+    history.push("/");
+  };
+  const lipatRegister = () => {
+    history.push("/register");
+  };
+
+  // initialize and destroy the PerfectScrollbar plugin
+  const handleChangeEmail = (event) => {
+    setEmail(event.target.value);
+  };
+  const handleChange = (event) => {
+    setPassword(event.target.value);
+  };
+  console.log("password", email)
   return (
     <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
       <CContainer>
@@ -33,7 +69,14 @@ const Login = () => {
                       <CInputGroupText>
                         <CIcon icon={cilUser} />
                       </CInputGroupText>
-                      <CFormInput placeholder="Username" autoComplete="username" />
+                      <CFormInput 
+                      placeholder="Username" 
+                      id="email"
+                      type="email"
+                        value= {email}
+                        onChange= {handleChangeEmail}
+                    
+                      autoComplete="username" />
                     </CInputGroup>
                     <CInputGroup className="mb-4">
                       <CInputGroupText>
@@ -41,13 +84,16 @@ const Login = () => {
                       </CInputGroupText>
                       <CFormInput
                         type="password"
+                        id="password"
                         placeholder="Password"
+                        value= {password}
+                        onChange= {handleChange}
                         autoComplete="current-password"
                       />
                     </CInputGroup>
                     <CRow>
                       <CCol xs={6}>
-                        <CButton color="primary" className="px-4">
+                        <CButton color="primary" className="px-4" onClick={signIn}>
                           Login
                         </CButton>
                       </CCol>
@@ -69,7 +115,7 @@ const Login = () => {
                       tempor incididunt ut labore et dolore magna aliqua.
                     </p>
                     <Link to="/register">
-                      <CButton color="primary" className="mt-3" active tabIndex={-1}>
+                      <CButton color="primary" className="mt-3" active tabIndex={-1}  onClick={lipatRegister} >
                         Register Now!
                       </CButton>
                     </Link>

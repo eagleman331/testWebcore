@@ -8,22 +8,11 @@ import { Provider } from 'react-redux'
 import store from './store'
 import { useEffect } from 'react'
 
-
-import { AuthProvider } from "./contexts/AuthContext";
-import TaskContextProvider from "./contexts/TaskContext";
-
-
-
-
+import { BrowserRouter } from 'react-router-dom'
 
 ReactDOM.render(
   <>
-
-      <TaskContextProvider>
-
     <App />
-    </TaskContextProvider>
-  
   </>,
   document.getElementById('root'),
 )

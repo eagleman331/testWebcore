@@ -1,11 +1,11 @@
-import React, { useContext, useState, useEffect } from "react"
+import React, { useContext, useState, useEffect, createContext } from "react"
 import { auth } from "./../Firebase"
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
-const AuthContext = React.createContext()
+const auth2 = getAuth();
+export const AuthContext = createContext();
 
-export function useAuth() {
-  return useContext(AuthContext)
-}
+
 
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState()
@@ -35,16 +35,17 @@ export function AuthProvider({ children }) {
   function updatePassword(password) {
     return currentUser.updatePassword(password)
   }
-
+//new
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((authUser) => {
-      setCurrentUserUid(authUser.uid)
+    const unsubscribe = onAuthStateChanged(auth2, (user) => {
+      setCurrentUserUid(user.uid)
     })
 
     return unsubscribe
   }, [])
+ 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => {
+    const unsubscribe = onAuthStateChanged(auth2, (user) => {
       setCurrentUser(user)
       setLoading(false)
     })
@@ -52,10 +53,12 @@ export function AuthProvider({ children }) {
     return unsubscribe
   }, [])
 
+
   const value = {
     currentUser,
     currentUserUid
   }
+ 
   return (
     <AuthContext.Provider value={value}>
       {!loading && children}
