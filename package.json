@@ -39,6 +39,8 @@
     "core-js": "^3.18.3",
     "enzyme": "^3.11.0",
     "firebase": "^9.2.0",
+    "firebase-admin": "^10.0.0",
+    "firebase-functions": "^3.16.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-app-polyfill": "^2.0.0",
