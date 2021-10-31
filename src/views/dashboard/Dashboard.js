@@ -51,6 +51,9 @@ import avatar4 from 'src/assets/images/avatars/4.jpg'
 import avatar5 from 'src/assets/images/avatars/5.jpg'
 import avatar6 from 'src/assets/images/avatars/6.jpg'
 
+import addMessage from "./../../addFunctions"
+
+
 const WidgetsDropdown = lazy(() => import('../widgets/WidgetsDropdown.js'))
 const WidgetsBrand = lazy(() => import('../widgets/WidgetsBrand.js'))
 
@@ -179,10 +182,21 @@ const Dashboard = () => {
       activity: 'Last week',
     },
   ]
-
+const testMessage = () => {
+  addMessage().then(result => {
+    console.log("result:", result.data)
+  })
+}
   return (
     <>
       <WidgetsDropdown />
+      <CButton 
+      color="secondary"
+      onClick={()=> {
+        testMessage()
+      }}
+      size="lg"
+      >Click Me</CButton>
       <CCard className="mb-4">
         <CCardBody>
           <CRow>
