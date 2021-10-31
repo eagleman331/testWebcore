@@ -9,30 +9,22 @@ import store from './store'
 import { useEffect } from 'react'
 
 
+import { AuthProvider } from "./contexts/AuthContext";
+import TaskContextProvider from "./contexts/TaskContext";
 
-// The Cloud Functions for Firebase SDK to create Cloud Functions and set up triggers.
-
-// The Firebase Admin SDK to access Firestore.
-const admin = require('firebase-admin');
-import { initializeApp } from 'firebase/app';
-import { getFunctions, httpsCallable } from "firebase/functions";
-
-
-const app = initializeApp({
-  projectId: 'campid-f8c50',
-  apiKey: 'AIzaSyAHxxl_FNdi8Wi_olok46-jUSZyaUSyfQM',
-  authDomain: "campid-f8c50.firebaseapp.com",
-});
-const functions = getFunctions(app);
-const addMessage = httpsCallable(functions, 'addMessage2');
 
 
 
 
 ReactDOM.render(
-  <Provider store={store}>
+  <>
+
+      <TaskContextProvider>
+
     <App />
-  </Provider>,
+    </TaskContextProvider>
+  
+  </>,
   document.getElementById('root'),
 )
 
@@ -41,4 +33,4 @@ ReactDOM.render(
 // Learn more about service workers: http://bit.ly/CRA-PWA
 serviceWorker.unregister()
 
-export default addMessage
+// export default addMessage

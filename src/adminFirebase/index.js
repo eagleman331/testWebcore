@@ -1,6 +1,6 @@
-import { initializeApp, applicationDefault } from 'firebase-admin/app';
+// import { initializeApp, applicationDefault } from 'firebase-admin/app';
 
-initializeApp({
-  credential: applicationDefault(),
-  projectId: 'campid-f8c50',
-});
+// initializeApp({
+//   credential: applicationDefault(),
+//   projectId: 'campid-f8c50',
+// });
