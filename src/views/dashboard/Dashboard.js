@@ -1,4 +1,4 @@
-import React, { lazy } from 'react'
+import React, { lazy, useEffect } from 'react'
 
 import {
   CAvatar,
@@ -52,7 +52,10 @@ import avatar5 from 'src/assets/images/avatars/5.jpg'
 import avatar6 from 'src/assets/images/avatars/6.jpg'
 
 import addMessage from "./../../addFunctions"
+import getUser from "./../../addFunctions"
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
+const functions = require("firebase-functions");
+
 const admin = require("firebase-admin")
 
 
@@ -184,24 +187,39 @@ const Dashboard = () => {
       activity: 'Last week',
     },
   ]
+  const addAdminRoles = () => {
+    
+    const addAdminRole = functions.httpsCallable('addAdminRole');
+  addAdminRole({ email: "biim@gmail.com" }).then(result => {
+     console.log(result)
+  })
+}
 const testMessage = () => {
   addMessage().then(result => {
   
   })
 }
-const listAllUsers = () => {
-  admin.auth().listUsers()
-};
+const kuhabago =() => {
+  getAuth()
+  .getUserByEmail("testw@gmail.com")
+  .then((userRecord) => {
+    // See the UserRecord reference doc for the contents of userRecord.
+    console.log(`Successfully fetched user data: ${userRecord.toJSON()}`);
+  })
+  .catch((error) => {
+    console.log('Error fetching user data:', error);
+  });
+}
 
 
-console.log("admin:", listAllUsers)
+
   return (
     <>
       <WidgetsDropdown />
       <CButton 
       color="secondary"
       onClick={()=> {
-        testMessage()
+        addAdminRoles()
       }}
       size="lg"
       >Click Me</CButton>

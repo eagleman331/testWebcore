@@ -16,6 +16,9 @@ var otherApp = firebase.initializeApp(otherAppConfig, "other");
 const functions = getFunctions(otherApp);
 const addMessage = httpsCallable(functions, 'addMessage2');
 
-export default addMessage
+const addAdminRole = httpsCallable(functions, 'addAdminRole');
+
+
+export default addAdminRole
 
 
