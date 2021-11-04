@@ -6,16 +6,16 @@ import 'firebase/compat/storage';
 import { getFunctions, httpsCallable } from "firebase/functions";
 import { initializeApp } from 'firebase/app';
 
-const firebaseConfig = ({
-  apiKey: "AIzaSyAHxxl_FNdi8Wi_olok46-jUSZyaUSyfQM",
-  authDomain: "campid-f8c50.firebaseapp.com",
-  databaseURL: "https://campid-f8c50-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "campid-f8c50",
-  storageBucket: "campid-f8c50.appspot.com",
-  messagingSenderId: "804204225080",
-  appId: "1:804204225080:web:665b34de67ec1a8be0fccd",
-  measurementId: "G-60NECDVYT5"
-} );
+const firebaseConfig = {
+  apiKey: "AIzaSyCWPGjVR_rJ3vrIg_Pp66le8vd340If84c",
+  authDomain: "encoderfortp.firebaseapp.com",
+  databaseURL: "https://encoderfortp-default-rtdb.firebaseio.com",
+  projectId: "encoderfortp",
+  storageBucket: "encoderfortp.appspot.com",
+  messagingSenderId: "176910501852",
+  appId: "1:176910501852:web:6cb642d98b611e60e4b119",
+  measurementId: "G-4FPYY7QWL4"
+};
   let app;
 
   if (firebase.apps.length === 0) {
