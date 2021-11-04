@@ -1,9 +1,29 @@
 import React from 'react'
 
+
+
+
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const ManageUsers = React.lazy(() => import('./views/ManageUsers/ManageUsers'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
+const FrontEndDataPlatform = React.lazy(() => import('./views/Database/FrontEndDataPlatform'))
+const AddDataMainMenu = React.lazy(() => import('./views/Database/add Data/AddDataMainMenu'))
+const AddDataFirstCategory = React.lazy(() => import('./views/Database/add Data/AddDataFirstCategory'))
+const AddDataSecondCategory = React.lazy(() => import('./views/Database/add Data/AddDataSecondCategory'))
+const AddFinal = React.lazy(() => import('./views/Database/add Data/AddFinal'))
+//Edit data
+const EditDataMainMenu  = React.lazy(() => import('./views/Database/EditDatabase/EditDataMainMenu'))
+const EditSecond  = React.lazy(() => import('./views/Database/EditDatabase/EditSecond'))
+const EditFirst  = React.lazy(() => import('./views/Database/EditDatabase/EditFirst'))
+const EditFinal = React.lazy(() => import('./views/Database/EditDatabase/EditFinal'))
+
+//Layout
+const UnangSabak = React.lazy(() => import('./views/Database/UnangSabak'))
+const SecondCategory = React.lazy(() => import('./views/Database/SecondCategory'))
+const FinalCategory = React.lazy(() => import('./views/Database/FinalCategory'))
+const DatadetailsView = React.lazy(() => import('./views/Database/DatadetailsView'))
+
 
 // Base
 const Accordion = React.lazy(() => import('./views/base/accordion/Accordion'))
@@ -96,6 +116,25 @@ const routes = [
   { path: '/widgets', name: 'Widgets', component: Widgets },
   //new
   { path: '/manageUsers', name: 'ManageUsers', component: ManageUsers },
+  { path: '/addDataMainMenu', name: 'addDataMainMenu', component: AddDataMainMenu },
+  { path: '/frontEndDataPlatform', name: 'FrontEndDataPlatform', component: FrontEndDataPlatform },
+  { path: '/addFirst', name: 'AddData First', component: AddDataFirstCategory },
+  { path: '/addSecond', name: 'AddData Main Menu', component: AddDataSecondCategory },
+  { path: '/addFinal', name: 'AddData Main Menu', component: AddFinal },
+  //Edit Data
+  { path: '/EditDataMainMenu', name: 'Edit Main Menu', component: EditDataMainMenu },
+  { path: '/EditFirst', name: 'Edit First', component: EditFirst },
+  { path: '/EditSecond', name: 'Edit Second', component: EditSecond },
+  { path: '/EditFinal', name: 'Edit Final', component: EditFinal },
+
+  //layout
+  { path: '/unangsabak', name: 'First Category', component: UnangSabak },
+  { path: '/secondCategory', name: 'Second Category', component: SecondCategory },
+  { path: '/finalCategory', name: 'Final Category', component: FinalCategory },
+  { path: '/dataDetails', name: 'Data Details', component: DatadetailsView },
+
+
+
 ]
 
 export default routes

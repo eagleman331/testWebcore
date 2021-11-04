@@ -8,6 +8,49 @@ admin.initializeApp({
   databaseURL: "https://campid-f8c50-default-rtdb.asia-southeast1.firebasedatabase.app"
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const uid = "some-uid"
+
+const addTokens = admin.auth().createCustomToken("some-uid")
+.then((customToken) => {
+  console.log(customToken);
+})
+.catch((error) => {
+  console.log("error creating custom token", error)
+});
+
 const getUsers = () => {
   admin
   .getAuth()
@@ -21,4 +64,4 @@ const getUsers = () => {
   });
 }
 
-export default getUsers;
+export  {getUsers, addTokens};

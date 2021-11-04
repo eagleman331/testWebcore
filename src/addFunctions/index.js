@@ -19,6 +19,5 @@ const addMessage = httpsCallable(functions, 'addMessage2');
 const addAdminRole = httpsCallable(functions, 'addAdminRole');
 
 
-export default addAdminRole
-
+export default addMessage
 

@@ -27,8 +27,7 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
-        <AuthProvider>
-          <TaskContextProvider>
+        
             <React.Suspense fallback={loading}>
               <Switch>
                 <Route
@@ -62,8 +61,7 @@ class App extends Component {
                 />
               </Switch>
             </React.Suspense>
-          </TaskContextProvider>
-        </AuthProvider>
+       
       </BrowserRouter>
     )
   }
