@@ -22,3 +22,17 @@ exports.addMessage = functions.https.onRequest(async (req, res) => {
   exports.addMessage2 = functions.https.onCall((data, context) => {
    return "hello, warren"
   });
+  exports.addAdminRole = functions.https.onCall((data, context) => {
+    //get user and custom claims(admin)
+    return admin.auth().getUserByEmail(data.email).then(user => {
+      return admin.auth().setCustomUserClaims(user.uid, {
+        admin:true
+      });
+    }).then(()=> {
+      return {
+        message: `Sucess! ${data.email} has been made an admin`
+      }
+    }).catch(err => {
+      return err;
+    })
+  })

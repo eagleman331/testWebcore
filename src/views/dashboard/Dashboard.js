@@ -194,11 +194,7 @@ const Dashboard = () => {
      console.log(result)
   })
 }
-const testMessage = () => {
-  addMessage().then(result => {
-  
-  })
-}
+
 const kuhabago =() => {
   getAuth()
   .getUserByEmail("testw@gmail.com")

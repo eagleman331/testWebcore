@@ -2,6 +2,9 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import 'firebase/compat/storage';
+import 'firebase/compat/functions';
+
+
 
 import { getFunctions, httpsCallable } from "firebase/functions";
 import { initializeApp } from 'firebase/app';
@@ -26,10 +29,11 @@ const firebaseConfig = {
 
   const db = app.firestore();
   const auth = firebase.auth();
+  const functions = firebase.functions()
   const storage = app.storage();
 
 
 
 
-  export { db, auth, storage };
+  export { db, auth, storage,functions };
 

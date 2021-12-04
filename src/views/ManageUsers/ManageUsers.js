@@ -1,4 +1,4 @@
-import React, { lazy, useEffect, useState } from 'react'
+import React, { lazy, useContext, useEffect, useState } from 'react'
 
 import {
   CAvatar,
@@ -50,14 +50,20 @@ import avatar3 from 'src/assets/images/avatars/3.jpg'
 import avatar4 from 'src/assets/images/avatars/4.jpg'
 import avatar5 from 'src/assets/images/avatars/5.jpg'
 import avatar6 from 'src/assets/images/avatars/6.jpg'
+import { cilList, cilShieldAlt, cilMinus,cilPenAlt,cilWeightlifitng } from '@coreui/icons';
 
-import addMessage from "../../addFunctions"
 import { Link } from 'react-router-dom'
-import { db } from "./../../Firebase";
+import { db, functions } from "./../../Firebase";
+// import addAdminRole from "./../../addFunctions"
 
+import grantModeratorRole from "./../../addFunctions" 
 
 const WidgetsDropdown = lazy(() => import('../widgets/WidgetsDropdown.js'))
 const WidgetsBrand = lazy(() => import('../widgets/WidgetsBrand.js'))
+
+import { AuthContext } from '../../contexts/AuthContext'
+
+
 
 const ManageUsers = () => {
   const random = (min, max) => {
@@ -184,11 +190,24 @@ const ManageUsers = () => {
       activity: 'Last week',
     },
   ]
-const testMessage = () => {
-  addMessage().then(result => {
-    console.log("result:", result.data)
+  const { currentUser, currentUserUid } = useContext(AuthContext)
+
+const selectAdmin = () => {
+  const addEmail = "biim@gmail.com"
+  const AddAdmin =  functions.httpsCallable('addAdminRole');
+ AddAdmin({email: addEmail}).then(result=> {
+    console.log(result);
   })
 }
+
+const pindotUser = () => {
+  
+  const Listahan =  functions.httpsCallable('listUsers');
+ Listahan().then(result=> {
+    console.log(result);
+  })
+}
+
 const [people, setPeople] =useState([])
 
 useEffect( () => {
@@ -203,18 +222,25 @@ useEffect( () => {
       
   
 }, []);
-console.log(people)
+console.log(currentUser)
+console.log("data", people)
   return (
     <>
       <WidgetsDropdown />
       <CButton 
       color="secondary"
       onClick={()=> {
-        testMessage()
+        selectAdmin()
       }}
       size="lg"
-      >Click Me</CButton>
-
+      >Click War</CButton>
+ <CButton 
+      color="secondary"
+      onClick={()=> {
+        selectAdmin()
+      }}
+      size="lg"
+      >Tetster</CButton>
       <CRow>
         <CCol xs>
           <CCard className="mb-4">
@@ -229,10 +255,13 @@ console.log(people)
                     <CTableHeaderCell className="text-center">
                       <CIcon icon={cilPeople} />
                     </CTableHeaderCell>
-                    <CTableHeaderCell>Test User</CTableHeaderCell>
-                    <CTableHeaderCell className="text-center">Country</CTableHeaderCell>
+                    <CTableHeaderCell>Name</CTableHeaderCell>
+                    <CTableHeaderCell className="text-center">Date Registered</CTableHeaderCell>
+                    <CTableHeaderCell className="text-center">Unit</CTableHeaderCell>
                     
-                    <CTableHeaderCell className="text-center">Payment Method</CTableHeaderCell>
+                    <CTableHeaderCell className="text-center">Admin</CTableHeaderCell>
+                    <CTableHeaderCell className="text-center">Edit</CTableHeaderCell>
+                    <CTableHeaderCell className="text-center">Delete</CTableHeaderCell>
     
                   </CTableRow>
                 </CTableHead>
@@ -249,14 +278,33 @@ console.log(people)
                           {"02 Nov 21"}
                         </div>
                       </CTableDataCell>
+
                       <CTableDataCell className="text-center">
-                        <Link to={"/register"}>
-                        <CIcon size="xl" icon={cifUs} title={"USA"} />
-                        </Link>
+                     
+                     <div>Date</div>
+                   
+                     </CTableDataCell>
+
+                      <CTableDataCell className="text-center">
+                     
+                      <CIcon icon={cilWeightlifitng} size="xl"/>
+                    
                       </CTableDataCell>
                      
                       <CTableDataCell className="text-center">
                         <CIcon size="xl" icon={cibCcAmex} />
+                      </CTableDataCell>
+
+                      <CTableDataCell className="text-center">
+                        <Link to={"/register"}>
+                        <CIcon size="xl" icon={cilPenAlt} title={"USA"} />
+                        </Link>
+                      </CTableDataCell>
+
+                      <CTableDataCell className="text-center">
+                        <Link to={"/register"}>
+                        <CIcon size="xl" icon={cilMinus} title={"USA"} />
+                        </Link>
                       </CTableDataCell>
                       
                     </CTableRow>
