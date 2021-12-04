@@ -211,7 +211,7 @@ const pindotUser = () => {
 const [people, setPeople] =useState([])
 
 useEffect( () => {
-  const unsubscribe = db.collection("confirmedUsers").onSnapshot((snapshot) =>
+  const unsubscribe = db.collection("users").onSnapshot((snapshot) =>
   setPeople(
       snapshot.docs.map((doc) => ({
         id: doc.id,
@@ -222,6 +222,7 @@ useEffect( () => {
       
   
 }, []);
+
 console.log(currentUser)
 console.log("data", people)
   return (
@@ -255,8 +256,8 @@ console.log("data", people)
                     <CTableHeaderCell className="text-center">
                       <CIcon icon={cilPeople} />
                     </CTableHeaderCell>
-                    <CTableHeaderCell>Name</CTableHeaderCell>
-                    <CTableHeaderCell className="text-center">Date Registered</CTableHeaderCell>
+                    <CTableHeaderCell>Email</CTableHeaderCell>
+                    <CTableHeaderCell className="text-center">UID</CTableHeaderCell>
                     <CTableHeaderCell className="text-center">Unit</CTableHeaderCell>
                     
                     <CTableHeaderCell className="text-center">Admin</CTableHeaderCell>
@@ -274,25 +275,24 @@ console.log("data", people)
                       <CTableDataCell>
                         <div>{item.data.name}</div>
                         <div className="small text-medium-emphasis">
-                          <span>{true ? 'New' : 'Recurring'}</span> | Registered:{' '}
-                          {"02 Nov 21"}
+                         { item.data.email}
                         </div>
                       </CTableDataCell>
 
                       <CTableDataCell className="text-center">
                      
-                     <div>Date</div>
+                     <div>{item.id}</div>
                    
                      </CTableDataCell>
 
                       <CTableDataCell className="text-center">
                      
-                      <CIcon icon={cilWeightlifitng} size="xl"/>
+                      <div>{item.data.unit}</div>
                     
                       </CTableDataCell>
                      
                       <CTableDataCell className="text-center">
-                        <CIcon size="xl" icon={cibCcAmex} />
+                        <div>{item.data.admin ? "true": "false"}</div>
                       </CTableDataCell>
 
                       <CTableDataCell className="text-center">
