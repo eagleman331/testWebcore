@@ -63,6 +63,7 @@ import { db, functions } from './../../Firebase'
 import grantModeratorRole from './../../addFunctions'
 
 import { AuthContext } from '../../contexts/AuthContext'
+import { Alert } from '@coreui/coreui'
 
 const ManageUsers = () => {
   const random = (min, max) => {
@@ -74,9 +75,13 @@ const ManageUsers = () => {
   const [deleteUser, setDeleteUser] = useState(false)
   const [unit, setUnit] = useState('newUser')
   const [admin, setAdmin] = useState(false)
+  const [visibleAdmin, setVisibleAdmin] = useState(false)
+  const [adminStatus, setAdminStatus] = useState(false)
+  const [userId, setUserId] = useState(null)
 
   const [user, setUser] = useState(null)
-  const [uid, setUId] = useState(null)
+  const [userEmail, setUserEmail] = useState(null)
+  const [uid, setUid] = useState(null)
   const selectAdmin = () => {
     const addEmail = 'biim@gmail.com'
     const AddAdmin = functions.httpsCallable('addAdminRole')
@@ -85,6 +90,9 @@ const ManageUsers = () => {
     })
   }
 
+  const onPressAlert = () => {
+    setVisibleAlert(true)
+  }
   const pindotUser = () => {
     const Listahan = functions.httpsCallable('listUsers')
     Listahan().then((result) => {
@@ -104,13 +112,24 @@ const ManageUsers = () => {
   }
   const addAdminRole = () => {
     const AddUnit = functions.httpsCallable('addAdminRole')
-    AddUnit({ email: user}).then((result) => {
-      console.log('result', result)
-    })
-    db.collection('users').doc(uid).update({
-      admin:true
-    })
+    if (admin == true) {
+      AddUnit({ email: user }).then((result) => {
+        console.log('result', result)
+      })
+      db.collection('users').doc(uid).update({
+        admin: true,
+      })
+    }
     setVisible(false)
+  }
+  const deleteUserFirebase = () => {
+    const DelUser = functions.httpsCallable('deleteUser')
+    if (admin == true) {
+      DelUser({ uid: uid }).then((result) => {
+        console.log('Delete User', userId)
+      })
+      db.collection('users').doc(uid).delete()
+    }
   }
   useEffect(() => {
     const unsubscribe = db.collection('users').onSnapshot((snapshot) =>
@@ -182,6 +201,47 @@ const ManageUsers = () => {
         </CModal>
         {/* Modal */}
 
+        {/* Modal For Admin */}
+        <CModal alignment="center" visible={visibleAdmin} onClose={() => setVisibleAdmin(false)}>
+          <CModalHeader>
+            <CModalTitle>Edit Admin</CModalTitle>
+          </CModalHeader>
+          <CModalBody>
+            <h5>Change Admin Role of user</h5>
+            <p>
+              Please Edit the ${adminStatus} {'  '}
+              <CDropdown>
+                <CDropdownToggle color="secondary">
+                  {admin ? 'Admin' : 'Normal User'}
+                </CDropdownToggle>
+                <CDropdownMenu>
+                  <CDropdownItem type="text" id="unit" onClick={() => setAdmin(true)} href="#">
+                    ADMIN
+                  </CDropdownItem>
+                  <CDropdownItem type="text" id="unit" onClick={() => setAdmin(false)} href="#">
+                    Normal User
+                  </CDropdownItem>
+                </CDropdownMenu>
+              </CDropdown>
+            </p>
+          </CModalBody>
+          <CModalFooter>
+            <CButton color="secondary" onClick={() => setVisibleAdmin(false)}>
+              Cancel
+            </CButton>
+            <CButton
+              onClick={() => {
+                addAdminRole()
+                setVisibleAdmin(false)
+              }}
+              color="primary"
+            >
+              ChangeAdmin
+            </CButton>
+          </CModalFooter>
+        </CModal>
+        {/* Modal */}
+
         {/* Delete Modal */}
         <CModal alignment="center" visible={deleteUser} onClose={() => setDeleteUser(false)}>
           <CModalHeader>
@@ -194,7 +254,15 @@ const ManageUsers = () => {
             <CButton color="secondary" onClick={() => setDeleteUser(false)}>
               Cancel
             </CButton>
-            <CButton color="primary">Are you sure Deleting this {user}</CButton>
+            <CButton
+              onClick={() => {
+                deleteUserFirebase()
+                setDeleteUser(false)
+              }}
+              color="primary"
+            >
+              Are you sure Deleting this {user}
+            </CButton>
           </CModalFooter>
         </CModal>
         {/* Delete */}
@@ -239,7 +307,17 @@ const ManageUsers = () => {
                       </CTableDataCell>
 
                       <CTableDataCell className="text-center">
-                        <div>{item.data.admin ? 'true' : 'false'}</div>
+                        <CButton
+                          variant="ghost"
+                          onClick={() => {
+                            setAdminStatus(item.data.admin)
+
+                            setUser(item.data.email)
+                            setVisibleAdmin(true)
+                          }}
+                        >
+                          {item.data.admin ? 'true' : 'false'}
+                        </CButton>
                       </CTableDataCell>
 
                       <CTableDataCell className="text-center">
@@ -247,7 +325,7 @@ const ManageUsers = () => {
                           variant="ghost"
                           onClick={() => {
                             setUser(item.data.email)
-                            setUId(item.data.uid)
+                            setUid(item.data.uid)
                             setVisible(true)
                           }}
                         >
@@ -259,7 +337,7 @@ const ManageUsers = () => {
                         <CButton
                           variant="ghost"
                           onClick={() => {
-                            setUserId(item.data.uid)
+                            setUid(item.data.uid)
                             setDeleteUser(true)
                           }}
                         >
