@@ -142,8 +142,6 @@ const ManageUsers = () => {
     )
   }, [])
 
-  console.log(currentUser)
-  console.log('data', people)
   return (
     <>
       <CRow>
@@ -337,6 +335,7 @@ const ManageUsers = () => {
                         <CButton
                           variant="ghost"
                           onClick={() => {
+                            setUser(item.data.email)
                             setUid(item.data.uid)
                             setDeleteUser(true)
                           }}
