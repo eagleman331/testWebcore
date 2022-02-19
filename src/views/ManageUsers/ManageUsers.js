@@ -3,10 +3,8 @@ import React, { lazy, useContext, useEffect, useState } from 'react'
 import {
   CAvatar,
   CButton,
-  CButtonGroup,
   CCard,
   CCardBody,
-  CCardFooter,
   CCardHeader,
   CCol,
   CDropdown,
@@ -18,7 +16,6 @@ import {
   CModalFooter,
   CModalHeader,
   CModalTitle,
-  CProgress,
   CRow,
   CTable,
   CTableBody,
@@ -27,49 +24,27 @@ import {
   CTableHeaderCell,
   CTableRow,
 } from '@coreui/react'
-import { CChartLine } from '@coreui/react-chartjs'
-import { getStyle, hexToRgba } from '@coreui/utils'
+
 import CIcon from '@coreui/icons-react'
 import {
-  cibCcAmex,
-  cibCcApplePay,
-  cibCcMastercard,
-  cibCcPaypal,
-  cibCcStripe,
-  cibCcVisa,
-  cibGoogle,
-  cibFacebook,
-  cibLinkedin,
-  cifBr,
-  cifEs,
-  cifFr,
-  cifIn,
-  cifPl,
-  cifUs,
-  cibTwitter,
-  cilCloudDownload,
+ 
   cilPeople,
-  cilUser,
-  cilUserFemale,
+
 } from '@coreui/icons'
 
 import avatar1 from 'src/assets/images/avatars/1.jpg'
-import { cilList, cilShieldAlt, cilMinus, cilPenAlt, cilWeightlifitng } from '@coreui/icons'
+import { cilMinus, cilPenAlt } from '@coreui/icons'
 
-import { Link } from 'react-router-dom'
+
 import { db, functions } from './../../Firebase'
-// import addAdminRole from "./../../addFunctions"
 
-import grantModeratorRole from './../../addFunctions'
 
 import { AuthContext } from '../../contexts/AuthContext'
-import { Alert } from '@coreui/coreui'
+
 
 const ManageUsers = () => {
-  const random = (min, max) => {
-    return Math.floor(Math.random() * (max - min + 1) + min)
-  }
-  const { currentUser, currentUserUid } = useContext(AuthContext)
+
+
   const [people, setPeople] = useState([])
   const [visible, setVisible] = useState(false)
   const [deleteUser, setDeleteUser] = useState(false)
@@ -77,10 +52,10 @@ const ManageUsers = () => {
   const [admin, setAdmin] = useState(false)
   const [visibleAdmin, setVisibleAdmin] = useState(false)
   const [adminStatus, setAdminStatus] = useState(false)
-  const [userId, setUserId] = useState(null)
+
 
   const [user, setUser] = useState(null)
-  const [userEmail, setUserEmail] = useState(null)
+
   const [uid, setUid] = useState(null)
   const selectAdmin = () => {
     const addEmail = 'biim@gmail.com'
@@ -90,15 +65,7 @@ const ManageUsers = () => {
     })
   }
 
-  const onPressAlert = () => {
-    setVisibleAlert(true)
-  }
-  const pindotUser = () => {
-    const Listahan = functions.httpsCallable('listUsers')
-    Listahan().then((result) => {
-      console.log(result)
-    })
-  }
+
 
   const changeUserRole = () => {
     const AddUnit = functions.httpsCallable('addUserRole')
