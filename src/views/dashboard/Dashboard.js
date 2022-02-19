@@ -60,6 +60,7 @@ const admin = require("firebase-admin")
 
 
 const WidgetsDropdown = lazy(() => import('../widgets/WidgetsDropdown.js'))
+const WidgetHome = lazy(() => import('../widgets/WidgetHome.js'))
 const WidgetsBrand = lazy(() => import('../widgets/WidgetsBrand.js'))
 
 const Dashboard = () => {
@@ -211,14 +212,8 @@ const kuhabago =() => {
 
   return (
     <>
-      <WidgetsDropdown />
-      <CButton 
-      color="secondary"
-      onClick={()=> {
-        addAdminRoles()
-      }}
-      size="lg"
-      >Click Me</CButton>
+      <WidgetHome />
+      
       <CCard className="mb-4">
         <CCardBody>
           <CRow>

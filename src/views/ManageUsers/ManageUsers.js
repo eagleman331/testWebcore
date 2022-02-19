@@ -119,17 +119,24 @@ const ManageUsers = () => {
       db.collection('users').doc(uid).update({
         admin: true,
       })
+    } else {
+      db.collection('users').doc(uid).update({
+        admin: false,
+      })
     }
     setVisible(false)
   }
   const deleteUserFirebase = () => {
     const DelUser = functions.httpsCallable('deleteUser')
+    console.log("delete", uid)
     if (admin == true) {
       DelUser({ uid: uid }).then((result) => {
-        console.log('Delete User', userId)
+        console.log('Delete User', result)
       })
       db.collection('users').doc(uid).delete()
+
     }
+ 
   }
   useEffect(() => {
     const unsubscribe = db.collection('users').onSnapshot((snapshot) =>
@@ -163,8 +170,8 @@ const ManageUsers = () => {
                   <CDropdownItem type="text" id="unit" onClick={() => setUnit('Charlie')} href="#">
                     Charlie Company
                   </CDropdownItem>
-                  <CDropdownItem type="text" id="unit" onClick={() => setUnit('Officer')} href="#">
-                    Others
+                  <CDropdownItem type="text" id="unit" onClick={() => setUnit('Normal User')} href="#">
+                    Normal User
                   </CDropdownItem>
                 </CDropdownMenu>
               </CDropdown>
