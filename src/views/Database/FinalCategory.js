@@ -129,12 +129,7 @@ console.log("first", first)
           <CCardBody>
           
             <p className="text-medium-emphasis small">
-              Use the <code>CRow</code> component and set{' '}
-              <code>&#123;xs|sm|md|lg|xl|xxl&#125;=&#123;&#123; cols: * &#125;&#125;</code> property
-              to control how many grid columns (wrapped around your cards) you show per row. For
-              example, here&#39;s <code>xs=&#123;&#123;cols: 1&#125;&#125;</code> laying out the
-              cards on one column, and <code>md=&#123;&#123;cols: 1&#125;&#125;</code> splitting
-              four cards to equal width across multiple rows, from the medium breakpoint up.
+            Edit This to Fill up necessary Narrative
             </p>
             
 

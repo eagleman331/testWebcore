@@ -133,7 +133,7 @@ const Dashboard = () => {
       <CRow>
         <CCol xs>
           <CCard className="mb-4">
-            <CCardHeader>Traffic {' & '} Sales</CCardHeader>
+            <CCardHeader>Application Users</CCardHeader>
             <CCardBody>
               <br />
 
